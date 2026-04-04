@@ -1,0 +1,36 @@
+﻿### Project
+cortex
+
+### Description
+The `cortex dag` commands store DAG files in the system data directory (`%APPDATA%/cortex/dags` on Windows) instead of respecting the `CORTEX_HOME` environment variable. When a user sets a custom `CORTEX_HOME`, DAGs should be stored within that profile, but they are instead saved to the default system location.
+
+### Error Message
+None.
+
+### Debug Logs
+None.
+
+### System Information
+- OS: Windows 11
+- Cortex version: `cortex 0.0.7 (7954d02 2026-03-30)`
+
+### Screenshots
+![Terminal showing cortex dag ignores CORTEX_HOME](https://raw.githubusercontent.com/princewillis/cortex-evidence/main/dag_cortex_home_bug.png)
+
+![Close-up of terminal showing the bug](https://raw.githubusercontent.com/princewillis/cortex-evidence/main/dag_cortex_home_bug_crop.png)
+
+### Steps to Reproduce
+1. Set a custom CORTEX_HOME: `$env:CORTEX_HOME = "C:\temp\test_cortex_home"`
+2. Create a DAG specification file at `$env:CORTEX_HOME\test-dag.yaml`
+3. Create the DAG: `cortex dag create --file "$env:CORTEX_HOME\test-dag.yaml" --id test-dag`
+4. Check if DAG exists in CORTEX_HOME: `Test-Path "$env:CORTEX_HOME\dags"` - returns **False**
+5. Check if DAG exists in APPDATA: `Test-Path "$env:APPDATA\cortex\dags"` - returns **True**
+
+### Expected Behavior
+The `cortex dag` command should store DAG files in `$CORTEX_HOME/dags/` when `CORTEX_HOME` is set, respecting the active profile.
+
+### Actual Behavior
+The `cortex dag` command stores DAG files in the system data directory (`%APPDATA%/cortex/dags`) regardless of the `CORTEX_HOME` environment variable.
+
+### Additional Context
+The `get_dag_store_path()` function in `dag_cmd/helpers.rs` uses `dirs::data_dir()` and falls back to `dirs::home_dir()` without checking `CORTEX_HOME`, causing all DAG operations to ignore custom profiles.
