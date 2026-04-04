@@ -1,0 +1,27 @@
+﻿============================================
+Cortex Lock - CORTEX_HOME Bug Evidence
+============================================
+
+Step 1: Set CORTEX_HOME environment variable
+CORTEX_HOME = C:\temp\test_cortex_home
+
+Step 2: Add a session lock
+Locked 1 session(s).
+
+Step 3: Check if lock file exists in CORTEX_HOME (expected location)
+In CORTEX_HOME: False (should be True)
+
+Step 4: Check if lock file exists in DEFAULT location (BUG - should NOT be here)
+In default location: True (BUG - should be False, but is True)
+
+Step 5: Content of lock file from WRONG location
+{
+  "version": 1,
+  "locked_sessions": [
+    {
+      "session_id": "abcdef12",
+      "locked_at": "2026-04-04T09:46:33.317101900+00:00",
+      "reason": "Test session lock"
+    }
+  ]
+}
