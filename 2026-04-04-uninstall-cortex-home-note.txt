@@ -1,0 +1,6 @@
+Active custom CORTEX_HOME:
+C:\Users\mirac\AppData\Local\Temp\cortex-uninstall-evidence-home
+
+Contents:
+- config.toml
+- sessions\session-marker.txt
