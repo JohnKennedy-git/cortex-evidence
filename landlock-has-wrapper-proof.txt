@@ -1,0 +1,2 @@
+C:\Users\mirac\OneDrive\Desktop\cortex> rg -n "has_wrapper\\(" src
+src\cortex-engine\src\sandbox\landlock.rs:90:    pub fn has_wrapper(&self) -> bool {

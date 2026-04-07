@@ -1,0 +1,13 @@
+src\\cortex-engine\\src\\sandbox\\landlock.rs
+
+        }
+
+        None
+    }
+
+    /// Check if the wrapper binary is available.
+    #[allow(dead_code)]
+    pub fn has_wrapper(&self) -> bool {
+        self.wrapper_path.is_some()
+    }
+}
