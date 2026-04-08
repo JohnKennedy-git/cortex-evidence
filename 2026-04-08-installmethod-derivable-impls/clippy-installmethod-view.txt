@@ -1,0 +1,22 @@
+  warning: this `impl` can be derived
+>    --> src\cortex-update\src\method.rs:184:1
+      |
+  184 | / impl Default for InstallMethod {
+  185 | |     fn default() -> Self {
+  186 | |         Self::Unknown
+  187 | |     }
+  188 | | }
+      | |_^
+      |
+      = help: for further information visit 
+  https://rust-lang.github.io/rust-clippy/rust-1.93.0/index.html#derivable_impls
+      = note: requested on the command line with `-W clippy::derivable-impls`
+  help: replace the manual implementation with a derive attribute and mark the default variant
+      |
+   15 + #[derive(Default)]
+   16 | pub enum InstallMethod {
+   17 |     /// curl -fsSL https://cortex.foundation/install.sh | bash (macOS/Linux)
+  ...
+   25 |     /// Manual installation or unknown method
+   26 ~     #[default]
+   27 ~     Unknown,
